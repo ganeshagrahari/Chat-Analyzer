@@ -1,6 +1,6 @@
 # 📊 Chat Analyzer
 
-### 🔗 Live Demo: [Chat Analyzer](https://chat-analyzer-xym5.onrender.com)
+### 🔗 Live Demo: [Chat Analyzer](https://chat-analyzer-n4q2.onrender.com/)
 
 ## 📌 Overview
 **Chat Analyzer** is a powerful web application built using **Streamlit, Python, and Machine Learning**, designed to analyze chat data and provide insightful visualizations. Whether it's understanding user activity, common words, or emoji usage, this tool offers an intuitive way to extract meaningful statistics from conversations.
