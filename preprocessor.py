@@ -2,7 +2,7 @@ import re
 import pandas as pd
 def preprocess(data):
     # breaking our messages into dates, time and messages
-    pattern = '\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{2}\s-\s'
+    pattern = r'\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{2}\s?(?:[APap][Mm])?\s-\s'
     
     messages = re.split(pattern, data)[1:]
     dates = re.findall(pattern,data)
@@ -10,7 +10,20 @@ def preprocess(data):
     #now we are going to create Pandas data frame 
     df = pd.DataFrame({'user_message' :messages, 'message_date' : dates})
     #covert messages_date type
-    df['message_date'] = pd.to_datetime(df['message_date'], format='%d/%m/%y, %H:%M - ')
+    df['message_date'] = df['message_date'].str.replace(r'\s-\s*$', '', regex=True)
+    # Replace the existing line: df['message_date'] = pd.to_datetime(...)
+    df['message_date'] = pd.to_datetime(
+        df['message_date'],
+        format='%d/%m/%y, %I:%M %p',
+        errors='coerce'
+    ).combine_first(
+        pd.to_datetime(
+            df['message_date'],
+            format='%d/%m/%y, %H:%M',
+            errors='coerce'
+        )
+    )
+    
 
     df.rename(columns = {'message_date' : 'date'}, inplace= True)
     

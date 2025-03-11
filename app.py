@@ -4,9 +4,50 @@ import matplotlib.font_manager as fm
 import preprocessor, helper
 import seaborn as sns
 
+# Add this right after the sidebar title in your app.py
 st.sidebar.title('WhatsApp Chat Analyzer')
 
+
+
 uploaded_file = st.sidebar.file_uploader("Choose a file")
+# Show intro only when no file is uploaded
+if uploaded_file is None:
+    st.markdown("""
+<style>
+    .how-to-start {
+        background: #fff3e6;  /* Light orange background */
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 25px;
+        border: 2px solid #ff9900;  /* Orange border */
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .how-to-start strong {
+        color: #d35400;  /* Dark orange text */
+        font-size: 20px;
+        display: block;
+        margin-bottom: 15px;
+    }
+    .how-to-start ol {
+        color: #2c3e50;  /* Dark gray text */
+        margin-left: 20px;
+    }
+    .how-to-start li {
+        margin: 12px 0;
+        padding-left: 8px;
+    }
+</style>
+
+<div class="how-to-start">
+    <strong>🚀Whatsapp-Chat-Analyzer Guide</strong>
+    <ol>
+        <li>Export chat from WhatsApp (without media)</li>
+        <li>Upload the .txt file using the sidebar</li>
+        <li>Select a user or 'Overall' analysis</li>
+        <li>Click 'Show Analysis'</li>
+    </ol>
+</div>
+""", unsafe_allow_html=True)
 if uploaded_file is not None:
     try :
         bytes_data = uploaded_file.getvalue()
@@ -128,7 +169,7 @@ if uploaded_file is not None:
             
         
     except Exception as e:
-        st.write(f"Error: The uploaded document is not supported or is corrupted. \n Use another file...")    
+        st.write(f"Error!!..The uploaded document is not supported or is corrupted. Use another file.\n The reson: {e}")    
        
         
         
